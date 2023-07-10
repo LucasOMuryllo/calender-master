@@ -1,0 +1,35 @@
+.confirm-modal {
+  .header{
+    .dialog-title {
+      line-height: 1.5em;
+      white-space: pre-line;
+      .divider {
+        margin-top: 10px;
+      }
+    }
+
+  }
+
+  .body {
+    .wrapper {
+      margin: 31px 0;
+      display: flex;
+      justify-content: space-between;
+      &.custom-margin { margin-bottom: 31px }
+      .margin-right { margin-right: 44px }
+      .input-wrapper {
+        width: 100%;
+      }
+      .code {
+        font-family: Consolas,"courier new";
+      }
+    }
+    .bullets {
+      white-space: pre;
+      line-height: 2em;
+    }
+  }
+}
+.delete-btn{
+  margin-left: 10px;
+}

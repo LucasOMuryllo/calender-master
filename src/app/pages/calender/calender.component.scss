@@ -1,0 +1,11 @@
+.calender-container {
+  display: flex;
+  justify-content: center;
+  .appointmentList {
+    width: 60%;
+    margin-left: 5px;
+  }
+  .calendar-card {
+    width: 300px;
+  }
+}

@@ -1,0 +1,27 @@
+<div class="confirm-modal">
+  <div class="header">
+    <div class="header">
+      <div class="dialog-title">
+        {{ data.title ? data.title : 'Warning Message' }}
+        <div class="divider"></div>
+      </div>
+    </div>
+  </div>
+  <div class="body form-design">
+    <div class="message wrapper">
+      <div [class]="data.classes">
+        {{ data.message ? data.message : 'Dummy message for confirmation modal' }}
+
+      </div>
+    </div>
+    <div class="action-wrapper">
+      <button  mat-button	mat-dialog-close type="button" (click)="close()"><span>Cancel</span></button>
+      <button class="delete-btn" mat-button mat-raised-button color="warn"  type="submit" (click)="submit()">
+        <span>{{ data.button ? data.button : 'Delete' }}</span>
+      </button>
+    </div>
+    <ng-template #templateRef>
+      <span>Copied to clipboard!</span>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+
+<div class="calender-container">
+
+  <mat-card class="calendar-card">
+    <mat-calendar (selectedChange)="changeDate($event)" [(selected)]="selecteDate" ></mat-calendar>
+  </mat-card>
+  <div class="appointmentList">
+    <app-appointments-table>
+    </app-appointments-table>
+  </div>
+</div>

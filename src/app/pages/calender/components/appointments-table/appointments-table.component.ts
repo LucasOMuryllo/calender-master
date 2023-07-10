@@ -7,7 +7,6 @@ import { AppointmentsService } from '../../services/appointments.service';
 import { Appointment } from '../../models';
 import { ConfirmComponent } from 'src/app/shared/components/confirm/confirm.component';
 
-
 @Component({
   selector: 'app-appointments-table',
   templateUrl: './appointments-table.component.html',
@@ -21,11 +20,11 @@ export class AppointmentsTableComponent implements OnInit {
       header: 'Events',
       cell: (element: Appointment) => `${element}`,
     },
-
   ];
   dataSource: Appointment[] = [];
   displayedColumns = this.columns.map(c => c.columnDef);
   @ViewChild(MatTable) table!: MatTable<Appointment>;
+
   constructor(
     private dialog: MatDialog,
     private appointmentsService: AppointmentsService
@@ -38,19 +37,21 @@ export class AppointmentsTableComponent implements OnInit {
   getSelectedDate() {
     this.appointmentsService.selectedDate$.subscribe(date => {
       this.selectedDate = date;
-      this.getDate(this.selectedDate)
-    })
+      this.getDate(this.selectedDate);
+    });
   }
 
   getDate(date: Date) {
-    this.dataSource = this.appointmentsService.getDateAppointment(date);
-    if (this.table) {
-      this.table.renderRows();
+    if (date) { // Verifica se a data está definida
+      this.dataSource = this.appointmentsService.getDateAppointment(date);
+      if (this.table) {
+        this.table.renderRows();
+      }
     }
   }
 
   drag(event: CdkDragDrop<Appointment>) {
-    moveItemInArray(this.dataSource, event.previousIndex, event.currentIndex)
+    moveItemInArray(this.dataSource, event.previousIndex, event.currentIndex);
     this.table.renderRows();
   }
 
@@ -61,17 +62,14 @@ export class AppointmentsTableComponent implements OnInit {
       data: {
         date: this.selectedDate
       }
-    }
+    };
     const dialogRef = this.dialog.open(AppointmentComponent, config);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.appointmentsService.addAppointment(result)
+        this.appointmentsService.addAppointment(result);
         this.getDate(this.selectedDate);
-        console.log("data:", this.getDate)
-
       }
-
     });
   }
 
@@ -79,21 +77,19 @@ export class AppointmentsTableComponent implements OnInit {
     item = {
       ...item,
       date: this.selectedDate
-    }
+    };
     const config: MatDialogConfig = {
       panelClass: 'app-full-bleed-dialog',
       width: '30%',
       data: item
-    }
+    };
     const dialogRef = this.dialog.open(AppointmentComponent, config);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.appointmentsService.editAppointment(result)
+        this.appointmentsService.editAppointment(result);
         this.getDate(this.selectedDate);
-
       }
-
     });
   }
 
@@ -110,10 +106,9 @@ export class AppointmentsTableComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.appointmentsService.deleteAppointment(item.id || 0)
+        this.appointmentsService.deleteAppointment(item.id || 0);
         this.getDate(this.selectedDate);
       }
     });
   }
-
 }

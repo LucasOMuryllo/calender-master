@@ -25,13 +25,13 @@ export class AppointmentComponent implements OnInit {
   }
 
   createFrom(item?: Appointment) {
-    const defaultDate = this.data.date ?? new Date();
+    const defaultDate = this.data.date ? new Date(this.data.date) : new Date();
 
     this.form = this.fb.group({
       id: [item?.id ?? null],
       title: [item?.title ?? null, [Validators.required]],
       description: [item?.description ?? null],
-      date: [item?.date ?? defaultDate, [Validators.required]],
+      date: [item?.date ?? null, [Validators.required]],
       startTime: [item?.startTime ?? null, [Validators.required]],
       endTime: [item?.endTime ?? null, [Validators.required]],
     });
@@ -41,13 +41,12 @@ export class AppointmentComponent implements OnInit {
     this.form.markAllAsTouched();
     if (this.form.valid) {
       const dateValue = this.form.get('date')?.value;
-      const formattedDate = formatDate(dateValue, 'dd-MM-yyyy', 'en-US');
+      const formattedDate = formatDate(dateValue, 'yyyy-MM-dd', 'en-US');
+      console.log('this.data.date:', this.data.date);
+      console.log('this.form.get("date")?.value:', formattedDate);
       this.form.get('date')?.setValue(formattedDate);
       this.dialogRef.close(this.form.value);
     }
-
-    console.log('this.data.date:', this.data.date);
-    console.log('this.form.get("date")?.value:', this.form.get('date')?.value);
-
   }
+
 }

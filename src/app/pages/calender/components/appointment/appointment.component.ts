@@ -42,8 +42,6 @@ export class AppointmentComponent implements OnInit {
     if (this.form.valid) {
       const dateValue = this.form.get('date')?.value;
       const formattedDate = formatDate(dateValue, 'yyyy-MM-dd', 'en-US');
-      console.log('this.data.date:', this.data.date);
-      console.log('this.form.get("date")?.value:', formattedDate);
       this.form.get('date')?.setValue(formattedDate);
       this.dialogRef.close(this.form.value);
     }
